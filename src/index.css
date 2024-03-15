@@ -40,12 +40,19 @@ body {
   cursor: grab;
 }
 
+.dndflow .dndnode.default {
+  /* transform: rotate(67.5deg) skewX(45deg) scaleY(cos(45deg)); */
+  /* transform: rotate(45deg); */
+}
+
 .dndflow .dndnode.input {
-  border-color: #0041d0;
+  border-color: #008dda;
+  background-color: #ace2e1;
 }
 
 .dndflow .dndnode.output {
-  border-color: #ff0072;
+  border-color: #7d0a0a;
+  background-color: #f3edc8;
 }
 
 .dndflow .reactflow-wrapper {
@@ -55,6 +62,16 @@ body {
 
 .dndflow .selectall {
   margin-top: 10px;
+}
+
+.react-flow__node.circle {
+  border-radius: 50%;
+  width: 60px;
+  height: 60px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  font-weight: 700;
 }
 
 @media screen and (min-width: 768px) {

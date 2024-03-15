@@ -6,6 +6,8 @@ import ReactFlow, {
   useEdgesState,
   Controls,
   MiniMap,
+  Background,
+  MarkerType,
 } from 'reactflow';
 import 'reactflow/dist/style.css';
 import Sidebar from './Sidebar';
@@ -13,12 +15,12 @@ import './App.css';
 import './index.css';
 
 const initialNodes = [
-  {
-    id: '1',
-    type: 'input',
-    data: { label: 'input node' },
-    position: { x: 250, y: 5 },
-  },
+  // {
+  //   id: '1',
+  //   type: 'input',
+  //   data: { label: 'input node' },
+  //   position: { x: 250, y: 5 },
+  // },
 ];
 
 let id = 0;
@@ -31,7 +33,18 @@ function App() {
   const [reactFlowInstance, setReactFlowInstance] = useState(null);
 
   const onConnect = useCallback(
-    (params) => setEdges((eds) => addEdge(params, eds)),
+    (params) =>
+      setEdges((eds) => {
+        console.log('hoho', params, eds);
+        const newParams = {
+          ...params,
+          type: 'smoothstep',
+          markerEnd: {
+            type: MarkerType.ArrowClosed,
+          },
+        };
+        return addEdge(newParams, eds);
+      }),
     []
   );
 
@@ -58,11 +71,21 @@ function App() {
         x: event.clientX,
         y: event.clientY,
       });
+      console.log('react flow instance', reactFlowInstance, type);
+      let dynamicClassName;
+      if (type === 'input') {
+        dynamicClassName = 'dndnode input';
+      } else if (type === 'default') {
+        dynamicClassName = 'dndnode default';
+      } else if (type === 'output') {
+        dynamicClassName = 'dndnode output';
+      } else return;
       const newNode = {
         id: getId(),
         type,
         position,
         data: { label: `${type} node` },
+        className: dynamicClassName,
       };
 
       setNodes((nds) => nds.concat(newNode));
@@ -70,10 +93,16 @@ function App() {
     [reactFlowInstance]
   );
 
+  console.log('node', nodes, edges);
+
   return (
-    <div className='dndflow' style={{ width: '90vw', height: '88vh' }}>
+    <div className='dndflow'>
       <ReactFlowProvider>
-        <div className='reactflow-wrapper' ref={reactFlowWrapper}>
+        <div
+          className='reactflow-wrapper'
+          style={{ height: '500px', width: '500px' }}
+          ref={reactFlowWrapper}
+        >
           <ReactFlow
             nodes={nodes}
             edges={edges}
@@ -86,7 +115,8 @@ function App() {
             fitView
           >
             <Controls />
-            <MiniMap />
+            <MiniMap zoomable pannable />
+            <Background color='#aaa' variant='dots' gap={12} size={1} />
           </ReactFlow>
         </div>
         <Sidebar />
