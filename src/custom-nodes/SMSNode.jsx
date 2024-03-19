@@ -1,7 +1,7 @@
 import { useCallback, memo, useState } from 'react';
 import { Handle, Position, useNodesState } from 'reactflow';
 
-function SMSNode({ data, isConnectable, id, onSMSData }) {
+function SMSNode({ data, isConnectable, id }) {
   const [formData, setFormData] = useState('');
 
   const onChange = useCallback((evt) => {
@@ -13,10 +13,9 @@ function SMSNode({ data, isConnectable, id, onSMSData }) {
       event.preventDefault();
       const newData = { formData: formData };
       console.log('New node data:', newData);
-      // Call the callback function with the data
-      //   onSMSData(newData);
+      data.onSubmit(newData);
     },
-    [formData, onSMSData]
+    [formData]
   );
 
   return (
@@ -30,7 +29,13 @@ function SMSNode({ data, isConnectable, id, onSMSData }) {
       <div className='sms-node'>
         <form onSubmit={onSubmit}>
           <label htmlFor='text'>SMS:</label>
-          <input id='text' name='text' onChange={onChange} className='nodrag' />
+          <input
+            id='text'
+            name='text'
+            className='nodrag'
+            onChange={onChange}
+            value={formData}
+          />
           <button type='submit'>Submit</button>
         </form>
       </div>

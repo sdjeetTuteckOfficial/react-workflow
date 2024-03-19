@@ -61,6 +61,10 @@ function App() {
     event.dataTransfer.dropEffect = 'move';
   }, []);
 
+  const onSubmit = (data) => {
+    console.log('parent', data);
+  };
+
   const onDrop = useCallback(
     (event) => {
       event.preventDefault();
@@ -99,7 +103,11 @@ function App() {
         id: getId(),
         type,
         position,
-        data: { label: mappedMetaDataObj.label, configData: mappedMetaDataObj },
+        data: {
+          label: mappedMetaDataObj.label,
+          configData: mappedMetaDataObj,
+          onSubmit: onSubmit,
+        },
         className: dynamicClassName,
       };
 
