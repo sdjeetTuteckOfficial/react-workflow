@@ -14,6 +14,7 @@ import Sidebar from './Sidebar';
 import './App.css';
 import './index.css';
 import EmailNode from './custom-nodes/EmailNode';
+import ConditionalNode from './custom-nodes/ConditionalNode';
 import { configuration } from './config/config';
 
 const initialNodes = [
@@ -29,6 +30,7 @@ let id = 0;
 const getId = () => `dndnode_${id++}`;
 const nodeTypes = {
   email: EmailNode,
+  conditional: ConditionalNode,
 };
 
 function App() {
@@ -79,6 +81,8 @@ function App() {
         dynamicClassName = 'dndnode output';
       } else if (type === 'email') {
         dynamicClassName = 'text-updater-node';
+      } else if (type === 'conditional') {
+        dynamicClassName = 'conditional-container';
       } else return;
 
       const mappedMetaDataObj = configuration.filter(
@@ -90,8 +94,8 @@ function App() {
         id: getId(),
         type,
         position,
-        configData: mappedMetaDataObj,
-        data: { label: mappedMetaDataObj.label },
+
+        data: { label: mappedMetaDataObj.label, configData: mappedMetaDataObj },
         className: dynamicClassName,
       };
 

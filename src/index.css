@@ -105,6 +105,25 @@ body {
   font-size: 12px;
 }
 
+/* conditional nodes */
+.conditional-container {
+  display: flex;
+  flex-wrap: wrap;
+  /* gap: 10px 50px; */
+}
+
+.conditional-container > .conditional-node {
+  width: 100px;
+  height: 100px;
+  transform: rotate(45deg);
+  background: #ffd700;
+}
+
+.conditional-container > .conditional-node > .conditional-mode__header {
+  transform: rotate(-45deg);
+  text-align: center;
+}
+
 @media screen and (min-width: 768px) {
   .dndflow {
     flex-direction: row;

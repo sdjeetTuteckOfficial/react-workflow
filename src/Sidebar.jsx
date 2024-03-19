@@ -31,6 +31,13 @@ const Sidebar = () => {
         email Node
       </div>
       <div
+        className='dndnode default'
+        draggable
+        onDragStart={(event) => onDragStart(event, 'conditional')}
+      >
+        Conditional
+      </div>
+      <div
         className='dndnode output'
         draggable
         onDragStart={(event) => onDragStart(event, 'output')}
