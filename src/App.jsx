@@ -90,7 +90,8 @@ function App() {
         id: getId(),
         type,
         position,
-        data: mappedMetaDataObj,
+        configData: mappedMetaDataObj,
+        data: { label: mappedMetaDataObj.label },
         className: dynamicClassName,
       };
 

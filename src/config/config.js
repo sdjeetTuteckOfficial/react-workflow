@@ -3,8 +3,8 @@ export const configuration = [
   { type: 'email', label: 'Email', description: 'End of the process' },
   {
     type: 'default',
-    label: 'Send Email',
-    description: 'Send notification email',
+    label: 'Default',
+    description: 'Default',
   },
   { type: 'if', label: 'Conditional Check', description: 'Check condition' },
   { type: 'output', label: 'Stop', description: 'End of the process' },
