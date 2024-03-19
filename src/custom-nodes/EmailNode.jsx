@@ -14,7 +14,7 @@ function EmailNode({ data, isConnectable }) {
         isConnectable={isConnectable}
       />
       <div className='text-updater-node'>
-        <label htmlFor='text'>Text:</label>
+        <label htmlFor='text'>Email:</label>
         <input id='text' name='text' onChange={onChange} className='nodrag' />
       </div>
       <Handle

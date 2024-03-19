@@ -27,16 +27,15 @@ const initialNodes = [
 
 let id = 0;
 const getId = () => `dndnode_${id++}`;
+const nodeTypes = {
+  email: EmailNode,
+};
 
 function App() {
   const reactFlowWrapper = useRef(null);
   const [nodes, setNodes, onNodesChange] = useNodesState(initialNodes);
   const [edges, setEdges, onEdgesChange] = useEdgesState([]);
   const [reactFlowInstance, setReactFlowInstance] = useState(null);
-
-  const nodeTypes = {
-    email: EmailNode,
-  };
 
   const onConnect = useCallback(
     (params) =>
