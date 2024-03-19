@@ -44,7 +44,6 @@ function App() {
   const onConnect = useCallback(
     (params) =>
       setEdges((eds) => {
-        // console.log('hoho', params, eds);
         const newParams = {
           ...params,
           type: 'smoothstep',

@@ -1,21 +1,38 @@
-import { useCallback, memo } from 'react';
-import { Handle, Position } from 'reactflow';
+import { useCallback, memo, useState } from 'react';
+import { Handle, Position, useNodesState } from 'reactflow';
 
-function SMSNode({ data, isConnectable }) {
+function SMSNode({ data, isConnectable, id, onSMSData }) {
+  const [formData, setFormData] = useState('');
+
   const onChange = useCallback((evt) => {
-    console.log(evt.target.value);
+    setFormData(evt.target.value);
   }, []);
+
+  const onSubmit = useCallback(
+    (event) => {
+      event.preventDefault();
+      const newData = { formData: formData };
+      console.log('New node data:', newData);
+      // Call the callback function with the data
+      //   onSMSData(newData);
+    },
+    [formData, onSMSData]
+  );
 
   return (
     <>
+      {console.log('data', data, id)}
       <Handle
         type='target'
         position={Position.Top}
         isConnectable={isConnectable}
       />
       <div className='sms-node'>
-        <label htmlFor='text'>SMS:</label>
-        <input id='text' name='text' onChange={onChange} className='nodrag' />
+        <form onSubmit={onSubmit}>
+          <label htmlFor='text'>SMS:</label>
+          <input id='text' name='text' onChange={onChange} className='nodrag' />
+          <button type='submit'>Submit</button>
+        </form>
       </div>
       <Handle
         type='source'
