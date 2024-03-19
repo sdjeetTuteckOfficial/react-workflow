@@ -60,6 +60,46 @@ body {
   background-color: #ace2e1;
 }
 
+.dndflow .dndnode.email {
+  width: 10vw;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  border-color: #008dda;
+  color: #fff;
+  background-color: #619293;
+}
+
+.dndflow .dndnode.sms {
+  width: 10vw;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  border-color: #008dda;
+  color: #fff;
+  background-color: #6f509e;
+}
+
+/* condition */
+
+.dndflow .dndnode.condition {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  align-items: center;
+}
+
+.condition > .conditional-node {
+  width: 50px;
+  height: 50px;
+  transform: rotate(45deg);
+  background: #ffd700;
+}
+
+.condition > .conditional-node > .label {
+  transform: rotate(-45deg);
+}
+
 .dndflow .dndnode.output {
   width: 50px;
   height: 50px;

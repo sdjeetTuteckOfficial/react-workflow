@@ -135,11 +135,10 @@ function App() {
 
   return (
     <div className='dndflow'>
-      {console.log('rerender', nodes)}
       <ReactFlowProvider>
         <div
           className='reactflow-wrapper'
-          style={{ height: '500px', width: '500px' }}
+          style={{ height: '100vh', width: '100vw' }}
           ref={reactFlowWrapper}
         >
           <ReactFlow
