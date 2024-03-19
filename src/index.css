@@ -22,6 +22,9 @@ body {
   padding: 15px 10px;
   font-size: 12px;
   background: #f7eedd;
+  display: flex;
+  align-items: center;
+  flex-direction: column;
 }
 
 .dndflow aside .description {
@@ -41,16 +44,29 @@ body {
 }
 
 .dndflow .dndnode.default {
+  width: 10vw;
   /* transform: rotate(67.5deg) skewX(45deg) scaleY(cos(45deg)); */
   /* transform: rotate(45deg); */
 }
 
 .dndflow .dndnode.input {
+  width: 50px;
+  height: 50px;
+  border-radius: 50%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
   border-color: #008dda;
   background-color: #ace2e1;
 }
 
 .dndflow .dndnode.output {
+  width: 50px;
+  height: 50px;
+  border-radius: 50%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
   border-color: #7d0a0a;
   background-color: #f3edc8;
 }
@@ -72,6 +88,21 @@ body {
   justify-content: center;
   align-items: center;
   font-weight: 700;
+}
+
+/* email nodes */
+.text-updater-node {
+  /* height: 50px; */
+  border: 1px solid #eee;
+  padding: 5px;
+  border-radius: 5px;
+  background: white;
+}
+
+.text-updater-node label {
+  display: block;
+  color: #777;
+  font-size: 12px;
 }
 
 @media screen and (min-width: 768px) {

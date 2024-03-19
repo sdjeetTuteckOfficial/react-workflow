@@ -13,6 +13,8 @@ import 'reactflow/dist/style.css';
 import Sidebar from './Sidebar';
 import './App.css';
 import './index.css';
+import EmailNode from './custom-nodes/EmailNode';
+import { configuration } from './config/config';
 
 const initialNodes = [
   // {
@@ -32,10 +34,14 @@ function App() {
   const [edges, setEdges, onEdgesChange] = useEdgesState([]);
   const [reactFlowInstance, setReactFlowInstance] = useState(null);
 
+  const nodeTypes = {
+    email: EmailNode,
+  };
+
   const onConnect = useCallback(
     (params) =>
       setEdges((eds) => {
-        console.log('hoho', params, eds);
+        // console.log('hoho', params, eds);
         const newParams = {
           ...params,
           type: 'smoothstep',
@@ -56,17 +62,10 @@ function App() {
   const onDrop = useCallback(
     (event) => {
       event.preventDefault();
-
       const type = event.dataTransfer.getData('application/reactflow');
-
-      // check if the dropped element is valid
       if (typeof type === 'undefined' || !type) {
         return;
       }
-
-      // reactFlowInstance.project was renamed to reactFlowInstance.screenToFlowPosition
-      // and you don't need to subtract the reactFlowBounds.left/top anymore
-      // details: https://reactflow.dev/whats-new/2023-11-10
       const position = reactFlowInstance.screenToFlowPosition({
         x: event.clientX,
         y: event.clientY,
@@ -79,12 +78,20 @@ function App() {
         dynamicClassName = 'dndnode default';
       } else if (type === 'output') {
         dynamicClassName = 'dndnode output';
+      } else if (type === 'email') {
+        dynamicClassName = 'text-updater-node';
       } else return;
+
+      const mappedMetaDataObj = configuration.filter(
+        (item) => item.type === type
+      )[0];
+      console.log('metadata', mappedMetaDataObj);
+
       const newNode = {
         id: getId(),
         type,
         position,
-        data: { label: `${type} node` },
+        data: mappedMetaDataObj,
         className: dynamicClassName,
       };
 
@@ -112,6 +119,7 @@ function App() {
             onInit={setReactFlowInstance}
             onDrop={onDrop}
             onDragOver={onDragOver}
+            nodeTypes={nodeTypes}
             fitView
           >
             <Controls />

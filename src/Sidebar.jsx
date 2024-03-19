@@ -14,7 +14,7 @@ const Sidebar = () => {
         draggable
         onDragStart={(event) => onDragStart(event, 'input')}
       >
-        Input Node
+        Start
       </div>
       <div
         className='dndnode default'
@@ -24,11 +24,18 @@ const Sidebar = () => {
         Default Node
       </div>
       <div
+        className='dndnode default'
+        draggable
+        onDragStart={(event) => onDragStart(event, 'email')}
+      >
+        email Node
+      </div>
+      <div
         className='dndnode output'
         draggable
         onDragStart={(event) => onDragStart(event, 'output')}
       >
-        Output Node
+        Stop
       </div>
     </aside>
   );
