@@ -61,8 +61,23 @@ function App() {
     event.dataTransfer.dropEffect = 'move';
   }, []);
 
-  const onSubmit = (data) => {
+  const onSubmit = (data, id) => {
     console.log('parent', data);
+    setNodes((nds) =>
+      nds.map((node) => {
+        if (node.id !== id) {
+          return node;
+        }
+        const formData = data;
+        return {
+          ...node,
+          data: {
+            ...node.data,
+            formData,
+          },
+        };
+      })
+    );
   };
 
   const onDrop = useCallback(
@@ -113,13 +128,14 @@ function App() {
 
       setNodes((nds) => nds.concat(newNode));
     },
-    [reactFlowInstance]
+    [reactFlowInstance, setNodes]
   );
 
   console.log('node', nodes, edges);
 
   return (
     <div className='dndflow'>
+      {console.log('rerender', nodes)}
       <ReactFlowProvider>
         <div
           className='reactflow-wrapper'

@@ -13,7 +13,7 @@ function SMSNode({ data, isConnectable, id }) {
       event.preventDefault();
       const newData = { formData: formData };
       console.log('New node data:', newData);
-      data.onSubmit(newData);
+      data.onSubmit(newData, id);
     },
     [formData]
   );
