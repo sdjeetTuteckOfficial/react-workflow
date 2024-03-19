@@ -38,6 +38,13 @@ const Sidebar = () => {
         Conditional
       </div>
       <div
+        className='dndnode default'
+        draggable
+        onDragStart={(event) => onDragStart(event, 'sms')}
+      >
+        SMS
+      </div>
+      <div
         className='dndnode output'
         draggable
         onDragStart={(event) => onDragStart(event, 'output')}

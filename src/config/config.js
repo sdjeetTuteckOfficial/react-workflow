@@ -11,6 +11,10 @@ export const configuration = [
     label: 'Default',
     description: 'Default',
   },
-  { type: 'if', label: 'Conditional Check', description: 'Check condition' },
+  {
+    type: 'sms',
+    label: 'SMS',
+    description: 'SMS',
+  },
   { type: 'output', label: 'Stop', description: 'End of the process' },
 ];

@@ -15,6 +15,7 @@ import './App.css';
 import './index.css';
 import EmailNode from './custom-nodes/EmailNode';
 import ConditionalNode from './custom-nodes/ConditionalNode';
+import SMSNode from './custom-nodes/SMSNode';
 import { configuration } from './config/config';
 
 const initialNodes = [
@@ -31,6 +32,7 @@ const getId = () => `dndnode_${id++}`;
 const nodeTypes = {
   email: EmailNode,
   conditional: ConditionalNode,
+  sms: SMSNode,
 };
 
 function App() {
@@ -83,7 +85,11 @@ function App() {
         dynamicClassName = 'text-updater-node';
       } else if (type === 'conditional') {
         dynamicClassName = 'conditional-container';
+      } else if (type === 'sms') {
+        dynamicClassName = 'sms-node';
       } else return;
+
+      console.log('config', configuration);
 
       const mappedMetaDataObj = configuration.filter(
         (item) => item.type === type
@@ -94,7 +100,6 @@ function App() {
         id: getId(),
         type,
         position,
-
         data: { label: mappedMetaDataObj.label, configData: mappedMetaDataObj },
         className: dynamicClassName,
       };
