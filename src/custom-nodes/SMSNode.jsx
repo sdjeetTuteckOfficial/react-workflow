@@ -1,5 +1,20 @@
 import { useCallback, memo, useState } from 'react';
 import { Handle, Position, useNodesState } from 'reactflow';
+import { Box, styled, Typography, TextField, Button } from '@mui/material';
+
+const SMSWrapper = styled(Box)(({ theme }) => ({
+  border: '1px solid #eee',
+  padding: '10px', // Increased padding for spacing
+  borderRadius: '5px',
+  background: '#6f509e',
+  marginLeft: theme.spacing(2),
+}));
+
+const LabelTypography = styled(Typography)(({ theme }) => ({
+  color: '#fff',
+  marginRight: theme.spacing(2),
+  fontFamily: 'Lato',
+}));
 
 function SMSNode({ data, isConnectable, id }) {
   const [formData, setFormData] = useState('');
@@ -20,25 +35,28 @@ function SMSNode({ data, isConnectable, id }) {
 
   return (
     <>
-      {console.log('data', data, id)}
       <Handle
         type='target'
         position={Position.Top}
         isConnectable={isConnectable}
       />
-      <div className='sms-node'>
+      <SMSWrapper>
         <form onSubmit={onSubmit}>
-          <label htmlFor='text'>SMS:</label>
-          <input
+          <LabelTypography variant='label' htmlFor='text'>
+            SMS:
+          </LabelTypography>
+          <TextField
             id='text'
             name='text'
-            className='nodrag'
             onChange={onChange}
-            value={formData}
+            className='nodrag'
+            size='small'
           />
-          <button type='submit'>Submit</button>
+          <Button type='submit' variant='contained' sx={{ marginLeft: 2 }}>
+            Submit
+          </Button>
         </form>
-      </div>
+      </SMSWrapper>
       <Handle
         type='source'
         position={Position.Bottom}
