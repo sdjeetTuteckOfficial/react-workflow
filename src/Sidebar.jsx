@@ -1,4 +1,76 @@
+import { Box, styled, Typography, useTheme } from '@mui/material';
+
+const StartBoxStyle = styled(Box)(() => ({
+  width: '50px',
+  height: '50px',
+  borderRadius: '50%',
+  display: 'flex',
+  justifyContent: 'center',
+  alignItems: 'center',
+  backgroundColor: '#007F73',
+  marginBottom: '20px',
+  color: '#fff',
+}));
+
+const EmailBoxStyle = styled(Box)(() => ({
+  padding: '10px 20px',
+  width: '10vw',
+  display: 'flex',
+  justifyContent: 'center',
+  alignItems: 'center',
+  borderColor: '#008dda',
+  color: '#fff',
+  backgroundColor: '#619293',
+  marginBottom: '10px',
+}));
+
+const ConditionBox = styled(Box)(() => ({
+  display: 'block',
+  marginTop: '20px',
+  marginBottom: '30px',
+}));
+
+const ConditionalNodeWrap = styled(Box)(() => ({
+  width: '60px',
+  height: '60px',
+  transform: 'rotate(45deg)',
+  background: '#ffd700',
+}));
+
+const ConditionalHeader = styled(Box)(() => ({
+  transform: 'rotate(-45deg)',
+  display: 'flex',
+  justifyContent: 'center',
+  alignItems: 'center',
+  width: '100%',
+  height: '100%',
+}));
+
+const SMSBoxStyle = styled(Box)(() => ({
+  padding: '10px 20px',
+  width: '10vw',
+  display: 'flex',
+  justifyContent: 'center',
+  alignItems: 'center',
+  color: '#fff',
+  backgroundColor: '#6F509E',
+  marginBottom: '20px',
+}));
+
+const OutputBoxStyle = styled(Box)(() => ({
+  width: '50px',
+  height: '50px',
+  borderRadius: '50%',
+  display: 'flex',
+  justifyContent: 'center',
+  alignItems: 'center',
+  backgroundColor: '#FF204E',
+  marginBottom: '10px',
+  color: '#fff',
+}));
+
 const Sidebar = () => {
+  const theme = useTheme();
   const onDragStart = (event, nodeType) => {
     event.dataTransfer.setData('application/reactflow', nodeType);
     event.dataTransfer.effectAllowed = 'move';
@@ -7,52 +79,41 @@ const Sidebar = () => {
   return (
     <aside>
       <div className='description'>
-        You can drag these nodes to the pane on the right.
+        <Typography variant='h6' mb={5} mt={3} color={theme.palette.grey[500]}>
+          Drag these nodes to the pane on the right
+        </Typography>
       </div>
-      <div
-        className='dndnode input'
+      <StartBoxStyle
         draggable
         onDragStart={(event) => onDragStart(event, 'start')}
       >
         Start
-      </div>
-      {/* <div
-        className='dndnode default'
-        draggable
-        onDragStart={(event) => onDragStart(event, 'default')}
-      >
-        Default Node
-      </div> */}
-      <div
-        className='dndnode email'
+      </StartBoxStyle>
+      <EmailBoxStyle
         draggable
         onDragStart={(event) => onDragStart(event, 'email')}
       >
         Email
-      </div>
-      <div
-        className='condition'
+      </EmailBoxStyle>
+      <ConditionBox
         draggable
         onDragStart={(event) => onDragStart(event, 'conditional')}
       >
-        <div className='conditional-node'>
-          <p className='label'>If</p>
-        </div>
-      </div>
-      <div
-        className='dndnode sms'
-        draggable
-        onDragStart={(event) => onDragStart(event, 'sms')}
-      >
+        <ConditionalNodeWrap>
+          <ConditionalHeader>
+            <h6>Condition</h6>
+          </ConditionalHeader>
+        </ConditionalNodeWrap>
+      </ConditionBox>
+      <SMSBoxStyle draggable onDragStart={(event) => onDragStart(event, 'sms')}>
         SMS
-      </div>
-      <div
-        className='dndnode output'
+      </SMSBoxStyle>
+      <OutputBoxStyle
         draggable
         onDragStart={(event) => onDragStart(event, 'stop')}
       >
         Stop
-      </div>
+      </OutputBoxStyle>
     </aside>
   );
 };

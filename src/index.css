@@ -1,14 +1,10 @@
-@import url('https://fonts.googleapis.com/css2?family=Lato:ital,wght@0,100;0,300;0,400;0,700;0,900;1,100;1,300;1,400;1,700;1,900&display=swap'):
-  root {
-  font-family: 'Lato', sans-serif;
-  line-height: 1.5;
-  font-weight: 400;
-}
+@import url('https://fonts.googleapis.com/css2?family=Lato:ital,wght@0,100;0,300;0,400;0,700;0,900;1,100;1,300;1,400;1,700;1,900&display=swap');
 
 body {
   margin: 0;
   padding: 0;
   box-sizing: border-box;
+  font-family: 'Lato', Courier, monospace;
 }
 
 .dndflow {
@@ -22,94 +18,18 @@ body {
   border-right: 1px solid #eee;
   padding: 15px 10px;
   font-size: 12px;
-  background: #f7eedd;
+  background: #eeedeb;
   display: flex;
   align-items: center;
   flex-direction: column;
+  -webkit-box-shadow: -12px 6px 15px -9px rgba(199, 197, 199, 1);
+  -moz-box-shadow: -12px 6px 15px -9px rgba(199, 197, 199, 1);
+  box-shadow: -12px 6px 15px -9px rgba(199, 197, 199, 1);
 }
 
 .dndflow aside .description {
+  text-align: center;
   margin-bottom: 10px;
-}
-
-.dndflow .dndnode {
-  height: 20px;
-  padding: 4px;
-  border: 1px solid #1a192b;
-  border-radius: 2px;
-  margin-bottom: 10px;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  cursor: grab;
-}
-
-.dndflow .dndnode.default {
-  width: 10vw;
-  /* transform: rotate(67.5deg) skewX(45deg) scaleY(cos(45deg)); */
-  /* transform: rotate(45deg); */
-}
-
-.dndflow .dndnode.input {
-  width: 50px;
-  height: 50px;
-  border-radius: 50%;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  border-color: #008dda;
-  background-color: #ace2e1;
-}
-
-.dndflow .dndnode.email {
-  width: 10vw;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  border-color: #008dda;
-  color: #fff;
-  background-color: #619293;
-}
-
-.dndflow .dndnode.sms {
-  width: 10vw;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  border-color: #008dda;
-  color: #fff;
-  background-color: #6f509e;
-}
-
-/* condition */
-
-.dndflow .dndnode.condition {
-  display: flex;
-  flex-wrap: wrap;
-  justify-content: center;
-  align-items: center;
-}
-
-.condition > .conditional-node {
-  width: 50px;
-  height: 50px;
-  transform: rotate(45deg);
-  background: #ffd700;
-}
-
-.condition > .conditional-node > .label {
-  transform: rotate(-45deg);
-}
-
-.dndflow .dndnode.output {
-  width: 50px;
-  height: 50px;
-  border-radius: 50%;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  border-color: #7d0a0a;
-  background-color: #f3edc8;
 }
 
 .dndflow .reactflow-wrapper {
@@ -131,60 +51,10 @@ body {
   font-weight: 700;
 }
 
-/* email nodes */
-.text-updater-node {
-  /* height: 50px; */
-  border: 1px solid #eee;
-  padding: 5px;
-  border-radius: 5px;
-  background: rgb(97, 146, 147);
-}
-
-.text-updater-node label {
-  display: block;
-  color: white;
-  font-size: 12px;
-}
-
-/* conditional nodes */
-.conditional-container {
-  display: flex;
-  flex-wrap: wrap;
-  /* gap: 10px 50px; */
-}
-
-.conditional-container > .conditional-node {
-  width: 100px;
-  height: 100px;
-  transform: rotate(45deg);
-  background: #ffd700;
-}
-
-.conditional-container > .conditional-node > .conditional-mode__header {
-  transform: rotate(-45deg);
-  text-align: center;
-}
-
-/* SMS node */
-
-.sms-node {
-  border: 1px solid #eee;
-  padding: 5px;
-  border-radius: 5px;
-  background: #6f509e;
-}
-
-.sms-node label {
-  display: block;
-  color: white;
-  font-size: 12px;
-}
-
 @media screen and (min-width: 768px) {
   .dndflow {
     flex-direction: row;
   }
-
   .dndflow aside {
     width: 20%;
     max-width: 250px;
