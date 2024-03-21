@@ -1,6 +1,17 @@
-import { useCallback, memo, useState } from 'react';
+import { memo, useState } from 'react';
 import { Handle, Position } from 'reactflow';
-import { Box, styled, TextField, Typography, Button } from '@mui/material';
+import {
+  Box,
+  styled,
+  TextField,
+  Typography,
+  Button,
+  DialogActions,
+} from '@mui/material';
+import CustomizedDialogs from '../components/Modal/Modal';
+import { useForm, Controller } from 'react-hook-form';
+import * as yup from 'yup';
+import { yupResolver } from '@hookform/resolvers/yup';
 
 const EmailWrapper = styled(Box)(({ theme }) => ({
   border: '1px solid #eee',
@@ -17,22 +28,31 @@ const LabelTypography = styled(Typography)(({ theme }) => ({
   fontFamily: 'Lato',
 }));
 
-function EmailNode({ data, isConnectable }) {
-  const [formData, setFormData] = useState('');
+const schema = yup.object().shape({
+  firstName: yup.string().required('First name is required'),
+});
 
-  const onChange = useCallback((evt) => {
-    setFormData(evt.target.value);
-  }, []);
+function EmailNode({ data, isConnectable, id }) {
+  const [open, setOpen] = useState(false);
+  const {
+    control,
+    handleSubmit,
+    formState: { errors },
+  } = useForm({
+    resolver: yupResolver(schema),
+  });
 
-  const onSubmit = useCallback(
-    (event) => {
-      event.preventDefault();
-      const newData = { formData: formData };
-      console.log('New node data:', newData);
-      data.onSubmit(newData, id);
-    },
-    [formData]
-  );
+  const handleFormSubmit = (formData) => {
+    console.log('data', formData);
+    const newData = { formData: formData };
+    // onSubmit(data);
+    data.onSubmit(newData, id);
+    setOpen(false);
+  };
+
+  const handleClose = () => {
+    setOpen(false);
+  };
 
   return (
     <>
@@ -42,26 +62,18 @@ function EmailNode({ data, isConnectable }) {
         isConnectable={isConnectable}
       />
       <EmailWrapper>
-        <form onSubmit={onSubmit}>
-          <LabelTypography variant='label' htmlFor='text'>
-            Email:
-          </LabelTypography>
-          <TextField
-            id='text'
-            name='text'
-            onChange={onChange}
-            className='nodrag'
-            size='small'
-          />
-          <Button
-            type='submit'
-            variant='contained'
-            sx={{ marginLeft: 2 }}
-            color='info'
-          >
-            Submit
-          </Button>
-        </form>
+        <LabelTypography variant='label' htmlFor='text'>
+          Send Email:
+        </LabelTypography>
+        <Button
+          // type='submit'
+          variant='contained'
+          sx={{ marginLeft: 2 }}
+          color='info'
+          onClick={() => setOpen(true)}
+        >
+          Assign Email
+        </Button>
       </EmailWrapper>
 
       <Handle
@@ -69,7 +81,43 @@ function EmailNode({ data, isConnectable }) {
         position={Position.Bottom}
         id='a'
         isConnectable={isConnectable}
+        style={{ background: 'red' }}
       />
+
+      <CustomizedDialogs
+        open={open}
+        modalTitle='Email Details'
+        handleClose={handleClose}
+      >
+        <form onSubmit={handleSubmit(handleFormSubmit)}>
+          <Typography sx={{ mb: 1 }}>Enter Email:</Typography>
+          <Controller
+            name='firstName'
+            control={control}
+            defaultValue=''
+            render={({ field }) => (
+              <TextField
+                {...field}
+                variant='outlined'
+                fullWidth
+                size='small'
+                error={Boolean(errors.firstName)}
+                helperText={errors.firstName ? errors.firstName.message : ''}
+                sx={{ marginBottom: 2, minWidth: 300 }}
+              />
+            )}
+          />
+
+          <Box display='flex' justifyContent='right' gap={1}>
+            <Button variant='outlined' onClick={handleClose}>
+              Cancel
+            </Button>
+            <Button type='submit' variant='contained' color='primary'>
+              Submit
+            </Button>
+          </Box>
+        </form>
+      </CustomizedDialogs>
     </>
   );
 }

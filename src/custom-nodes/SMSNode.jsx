@@ -63,6 +63,7 @@ function SMSNode({ data, isConnectable, id }) {
         position={Position.Bottom}
         id='a'
         isConnectable={isConnectable}
+        style={{ background: 'red' }}
       />
     </>
   );

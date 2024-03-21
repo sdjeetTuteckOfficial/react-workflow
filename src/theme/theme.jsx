@@ -82,7 +82,7 @@ const theme = createTheme({
           border: '1px solid #C9CDCF',
         },
         input: {
-          padding: '0.5rem 0.6rem',
+          // padding: '0.5rem 0.6rem',
           fontSize: '12px',
           fontWeight: 400,
           lineHeight: '125%',
