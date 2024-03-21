@@ -10,6 +10,13 @@ const StartBoxStyle = styled(Box)(() => ({
   backgroundColor: '#007F73',
   marginBottom: '20px',
   color: '#fff',
+  boxShadow: '0 4px 6px rgba(0, 0, 0, 0.49)',
+  cursor: 'grab',
+  transition: 'filter 0.3s ease',
+  '&:hover': {
+    filter: 'brightness(1.2)',
+    color: '#fff',
+  },
 }));
 
 const EmailBoxStyle = styled(Box)(() => ({
@@ -20,8 +27,15 @@ const EmailBoxStyle = styled(Box)(() => ({
   alignItems: 'center',
   borderColor: '#008dda',
   color: '#fff',
-  backgroundColor: '#619293',
+  backgroundColor: '#0C2D57',
   marginBottom: '10px',
+  boxShadow: '0 4px 6px rgba(0, 0, 0, 0.49)',
+  cursor: 'grab',
+  transition: 'filter 0.3s ease',
+  '&:hover': {
+    filter: 'brightness(1.6)',
+    color: '#fff',
+  },
 }));
 
 const ConditionBox = styled(Box)(() => ({
@@ -31,10 +45,17 @@ const ConditionBox = styled(Box)(() => ({
 }));
 
 const ConditionalNodeWrap = styled(Box)(() => ({
-  width: '60px',
-  height: '60px',
+  width: '70px',
+  height: '70px',
   transform: 'rotate(45deg)',
   background: '#ffd700',
+  boxShadow: '0 4px 6px rgba(0, 0, 0, 0.49)',
+  cursor: 'grab',
+  transition: 'filter 0.3s ease',
+  '&:hover': {
+    filter: 'brightness(1.1)',
+    color: '#fff',
+  },
 }));
 
 const ConditionalHeader = styled(Box)(() => ({
@@ -55,6 +76,13 @@ const SMSBoxStyle = styled(Box)(() => ({
   color: '#fff',
   backgroundColor: '#6F509E',
   marginBottom: '20px',
+  boxShadow: '0 4px 6px rgba(0, 0, 0, 0.49)',
+  cursor: 'grab',
+  transition: 'filter 0.3s ease',
+  '&:hover': {
+    filter: 'brightness(1.2)',
+    color: '#fff',
+  },
 }));
 
 const OutputBoxStyle = styled(Box)(() => ({
@@ -65,8 +93,14 @@ const OutputBoxStyle = styled(Box)(() => ({
   justifyContent: 'center',
   alignItems: 'center',
   backgroundColor: '#FF204E',
+  boxShadow: '0 4px 6px rgba(0, 0, 0, 0.49)',
   marginBottom: '10px',
   color: '#fff',
+  cursor: 'grab',
+  transition: 'filter 0.3s ease',
+  '&:hover': {
+    filter: 'brightness(1.5)',
+  },
 }));
 
 const Sidebar = () => {
@@ -101,7 +135,15 @@ const Sidebar = () => {
       >
         <ConditionalNodeWrap>
           <ConditionalHeader>
-            <h6>Condition</h6>
+            <Typography
+              sx={{
+                color: theme.palette.grey['900'],
+                fontWeight: 700,
+                fontSize: '12px',
+              }}
+            >
+              Condition
+            </Typography>
           </ConditionalHeader>
         </ConditionalNodeWrap>
       </ConditionBox>

@@ -6,8 +6,9 @@ const EmailWrapper = styled(Box)(({ theme }) => ({
   border: '1px solid #eee',
   padding: '10px',
   borderRadius: '5px',
-  background: 'rgb(97, 146, 147)',
+  background: '#0C2D57',
   marginLeft: theme.spacing(2),
+  boxShadow: '0 4px 6px rgba(0, 0, 0, 0.49)',
 }));
 
 const LabelTypography = styled(Typography)(({ theme }) => ({

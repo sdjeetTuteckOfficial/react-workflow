@@ -11,6 +11,7 @@ const ConditionalNodeWrap = styled(Box)(() => ({
   height: '60px',
   transform: 'rotate(45deg)',
   background: '#ffd700',
+  boxShadow: '0 4px 6px rgba(0, 0, 0, 0.49)',
 }));
 
 const ConditionalHeader = styled(Box)(() => ({

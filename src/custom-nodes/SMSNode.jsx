@@ -8,6 +8,7 @@ const SMSWrapper = styled(Box)(({ theme }) => ({
   borderRadius: '5px',
   background: '#6f509e',
   marginLeft: theme.spacing(2),
+  boxShadow: '0 4px 6px rgba(0, 0, 0, 0.49)',
 }));
 
 const LabelTypography = styled(Typography)(({ theme }) => ({

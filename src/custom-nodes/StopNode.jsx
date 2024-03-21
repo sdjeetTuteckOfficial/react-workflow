@@ -11,6 +11,7 @@ const CircularBox = styled(Box)(({ theme }) => ({
   display: 'flex',
   justifyContent: 'center',
   alignItems: 'center',
+  boxShadow: '0 4px 6px rgba(0, 0, 0, 0.49)',
 }));
 
 function StopNode({ data, isConnectable }) {

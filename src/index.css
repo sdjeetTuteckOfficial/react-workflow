@@ -37,20 +37,6 @@ body {
   height: 100%;
 }
 
-.dndflow .selectall {
-  margin-top: 10px;
-}
-
-.react-flow__node.circle {
-  border-radius: 50%;
-  width: 60px;
-  height: 60px;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  font-weight: 700;
-}
-
 @media screen and (min-width: 768px) {
   .dndflow {
     flex-direction: row;
