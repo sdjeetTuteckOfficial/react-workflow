@@ -1,5 +1,27 @@
-import { useCallback, memo } from 'react';
+import { memo } from 'react';
 import { Handle, Position } from 'reactflow';
+import { Box, styled } from '@mui/material';
+
+const ConditionBox = styled(Box)(() => ({
+  display: 'block',
+}));
+
+const ConditionalNodeWrap = styled(Box)(() => ({
+  width: '60px',
+  height: '60px',
+  transform: 'rotate(45deg)',
+  background: '#ffd700',
+  boxShadow: '0 4px 6px rgba(0, 0, 0, 0.49)',
+}));
+
+const ConditionalHeader = styled(Box)(() => ({
+  transform: 'rotate(-45deg)',
+  display: 'flex',
+  justifyContent: 'center',
+  alignItems: 'center',
+  width: '100%',
+  height: '100%',
+}));
 
 function ConditionalNode({ data, isConnectable }) {
   //   const onChange = useCallback((evt) => {
@@ -12,26 +34,31 @@ function ConditionalNode({ data, isConnectable }) {
         type='target'
         position={Position.Top}
         isConnectable={isConnectable}
+        style={{ zIndex: 6 }}
       />
-      <div className='conditional-container'>
-        <div className='conditional-node'>
-          <div className='conditional-mode__header'>
-            <h3>Condition</h3>
-          </div>
-        </div>
-      </div>
-      <Handle
-        type='source'
-        position={Position.Bottom}
-        id='conditional_yes'
-        isConnectable={isConnectable}
-      />
-      <Handle
-        type='source'
-        position={Position.Right}
-        id='conditional_no'
-        isConnectable={isConnectable}
-      />
+      <Box sx={{ display: 'flex', justifyContent: 'center' }}>
+        <ConditionBox>
+          <ConditionalNodeWrap>
+            <ConditionalHeader>
+              <h6>Condition</h6>
+            </ConditionalHeader>
+          </ConditionalNodeWrap>
+        </ConditionBox>
+        <Handle
+          type='source'
+          position={Position.Bottom}
+          id='conditional_no'
+          isConnectable={isConnectable}
+          style={{ background: 'red' }}
+        />
+        <Handle
+          type='source'
+          position={Position.Right}
+          id='conditional_yes'
+          isConnectable={isConnectable}
+          style={{ background: 'green' }}
+        />
+      </Box>
     </>
   );
 }

@@ -16,6 +16,8 @@ import './index.css';
 import EmailNode from './custom-nodes/EmailNode';
 import ConditionalNode from './custom-nodes/ConditionalNode';
 import SMSNode from './custom-nodes/SMSNode';
+import StartNode from './custom-nodes/StartNode';
+import StopNode from './custom-nodes/StopNode';
 import { configuration } from './config/config';
 
 const initialNodes = [
@@ -33,6 +35,8 @@ const nodeTypes = {
   email: EmailNode,
   conditional: ConditionalNode,
   sms: SMSNode,
+  start: StartNode,
+  stop: StopNode,
 };
 
 function App() {
@@ -93,18 +97,18 @@ function App() {
       });
       console.log('react flow instance', reactFlowInstance, type);
       let dynamicClassName;
-      if (type === 'input') {
-        dynamicClassName = 'dndnode input';
+      if (type === 'start') {
+        dynamicClassName = '';
       } else if (type === 'default') {
         dynamicClassName = 'dndnode default';
-      } else if (type === 'output') {
-        dynamicClassName = 'dndnode output';
+      } else if (type === 'stop') {
+        dynamicClassName = '';
       } else if (type === 'email') {
-        dynamicClassName = 'text-updater-node';
+        dynamicClassName = '';
       } else if (type === 'conditional') {
-        dynamicClassName = 'conditional-container';
+        dynamicClassName = '';
       } else if (type === 'sms') {
-        dynamicClassName = 'sms-node';
+        dynamicClassName = '';
       } else return;
 
       console.log('config', configuration);
