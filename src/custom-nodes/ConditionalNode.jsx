@@ -1,6 +1,7 @@
 import { memo } from 'react';
 import { Handle, Position } from 'reactflow';
 import { Box, styled } from '@mui/material';
+import PropTypes from 'prop-types';
 
 const ConditionBox = styled(Box)(() => ({
   display: 'block',
@@ -23,10 +24,11 @@ const ConditionalHeader = styled(Box)(() => ({
   height: '100%',
 }));
 
-function ConditionalNode({ data, isConnectable }) {
+function ConditionalNode({ data, isConnectable, id }) {
   //   const onChange = useCallback((evt) => {
   //     console.log(evt.target.value);
   //   }, []);
+  console.log('data', data, id);
 
   return (
     <>
@@ -64,3 +66,9 @@ function ConditionalNode({ data, isConnectable }) {
 }
 
 export default memo(ConditionalNode);
+
+ConditionalNode.propTypes = {
+  data: PropTypes.object.isRequired,
+  isConnectable: PropTypes.bool.isRequired,
+  id: PropTypes.string.isRequired,
+};
