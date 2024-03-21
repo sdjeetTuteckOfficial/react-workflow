@@ -1,17 +1,11 @@
 import { memo, useState } from 'react';
 import { Handle, Position } from 'reactflow';
-import {
-  Box,
-  styled,
-  TextField,
-  Typography,
-  Button,
-  DialogActions,
-} from '@mui/material';
+import { Box, styled, TextField, Typography, Button } from '@mui/material';
 import CustomizedDialogs from '../components/Modal/Modal';
 import { useForm, Controller } from 'react-hook-form';
 import * as yup from 'yup';
 import { yupResolver } from '@hookform/resolvers/yup';
+import PropTypes from 'prop-types';
 
 const EmailWrapper = styled(Box)(({ theme }) => ({
   border: '1px solid #eee',
@@ -29,7 +23,7 @@ const LabelTypography = styled(Typography)(({ theme }) => ({
 }));
 
 const schema = yup.object().shape({
-  firstName: yup.string().required('First name is required'),
+  email: yup.string().required('First name is required'),
 });
 
 function EmailNode({ data, isConnectable, id }) {
@@ -38,6 +32,7 @@ function EmailNode({ data, isConnectable, id }) {
     control,
     handleSubmit,
     formState: { errors },
+    reset,
   } = useForm({
     resolver: yupResolver(schema),
   });
@@ -45,9 +40,9 @@ function EmailNode({ data, isConnectable, id }) {
   const handleFormSubmit = (formData) => {
     console.log('data', formData);
     const newData = { formData: formData };
-    // onSubmit(data);
     data.onSubmit(newData, id);
     setOpen(false);
+    reset();
   };
 
   const handleClose = () => {
@@ -92,7 +87,7 @@ function EmailNode({ data, isConnectable, id }) {
         <form onSubmit={handleSubmit(handleFormSubmit)}>
           <Typography sx={{ mb: 1 }}>Enter Email:</Typography>
           <Controller
-            name='firstName'
+            name='email'
             control={control}
             defaultValue=''
             render={({ field }) => (
@@ -101,8 +96,8 @@ function EmailNode({ data, isConnectable, id }) {
                 variant='outlined'
                 fullWidth
                 size='small'
-                error={Boolean(errors.firstName)}
-                helperText={errors.firstName ? errors.firstName.message : ''}
+                error={Boolean(errors.email)}
+                helperText={errors.email ? errors.email.message : ''}
                 sx={{ marginBottom: 2, minWidth: 300 }}
               />
             )}
@@ -123,3 +118,9 @@ function EmailNode({ data, isConnectable, id }) {
 }
 
 export default memo(EmailNode);
+
+EmailNode.propTypes = {
+  data: PropTypes.object.isRequired,
+  isConnectable: PropTypes.bool.isRequired,
+  id: PropTypes.string.isRequired,
+};
