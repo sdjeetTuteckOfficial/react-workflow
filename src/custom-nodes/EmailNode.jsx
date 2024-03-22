@@ -8,6 +8,7 @@ import {
   Button,
   IconButton,
   Chip,
+  Fab,
 } from '@mui/material';
 import { v4 as uuidv4 } from 'uuid';
 import CustomizedDialogs from '../components/Modal/Modal';
@@ -15,6 +16,7 @@ import { useForm, Controller } from 'react-hook-form';
 import AddCircleIcon from '@mui/icons-material/AddCircle';
 import * as yup from 'yup';
 import { yupResolver } from '@hookform/resolvers/yup';
+import EmailIcon from '@mui/icons-material/Email';
 import PropTypes from 'prop-types';
 
 const EmailWrapper = styled(Box)(({ theme }) => ({
@@ -24,6 +26,8 @@ const EmailWrapper = styled(Box)(({ theme }) => ({
   background: '#0C2D57',
   marginLeft: theme.spacing(2),
   boxShadow: '0 4px 6px rgba(0, 0, 0, 0.49)',
+  display: 'flex',
+  alignItems: 'center',
 }));
 
 const LabelTypography = styled(Typography)(({ theme }) => ({
@@ -83,7 +87,15 @@ function EmailNode({ data, isConnectable, id }) {
         <LabelTypography variant='label' htmlFor='text'>
           Send Email:
         </LabelTypography>
-        <Button
+        <Fab
+          size='small'
+          aria-label='add'
+          color='info'
+          onClick={() => setOpen(true)}
+        >
+          <EmailIcon />
+        </Fab>
+        {/* <Button
           // type='submit'
           variant='contained'
           sx={{ marginLeft: 2 }}
@@ -91,7 +103,7 @@ function EmailNode({ data, isConnectable, id }) {
           onClick={() => setOpen(true)}
         >
           Assign Email
-        </Button>
+        </Button> */}
       </EmailWrapper>
 
       <Handle
