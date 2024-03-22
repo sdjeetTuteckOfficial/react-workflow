@@ -83,7 +83,7 @@ function SMSNode({ data, isConnectable, id }) {
 
       <EmailWrapper>
         <LabelTypography variant='label' htmlFor='text'>
-          Send Phone Number:
+          Send SMS:
         </LabelTypography>
         <Button
           // type='submit'
