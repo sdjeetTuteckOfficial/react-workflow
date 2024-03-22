@@ -1,10 +1,15 @@
-import { useCallback, memo, useState } from 'react';
-import { Handle, Position, useNodesState } from 'reactflow';
-import { Box, styled, Typography, TextField, Button } from '@mui/material';
+import { memo, useState } from 'react';
+import { Handle, Position } from 'reactflow';
+import { Box, styled, TextField, Typography, Button } from '@mui/material';
+import CustomizedDialogs from '../components/Modal/Modal';
+import { useForm, Controller } from 'react-hook-form';
+import * as yup from 'yup';
+import { yupResolver } from '@hookform/resolvers/yup';
+import PropTypes from 'prop-types';
 
 const SMSWrapper = styled(Box)(({ theme }) => ({
   border: '1px solid #eee',
-  padding: '10px', // Increased padding for spacing
+  padding: '10px',
   borderRadius: '5px',
   background: '#6f509e',
   marginLeft: theme.spacing(2),
@@ -17,22 +22,32 @@ const LabelTypography = styled(Typography)(({ theme }) => ({
   fontFamily: 'Lato',
 }));
 
+const schema = yup.object().shape({
+  phoneNumber: yup.string().required('First name is required'),
+});
+
 function SMSNode({ data, isConnectable, id }) {
-  const [formData, setFormData] = useState('');
+  const [open, setOpen] = useState(false);
+  const {
+    control,
+    handleSubmit,
+    formState: { errors },
+    reset,
+  } = useForm({
+    resolver: yupResolver(schema),
+  });
 
-  const onChange = useCallback((evt) => {
-    setFormData(evt.target.value);
-  }, []);
+  const handleFormSubmit = (formData) => {
+    console.log('data', formData);
+    const newData = { formData: formData };
+    data.onSubmit(newData, id);
+    setOpen(false);
+    reset();
+  };
 
-  const onSubmit = useCallback(
-    (event) => {
-      event.preventDefault();
-      const newData = { formData: formData };
-      console.log('New node data:', newData);
-      data.onSubmit(newData, id);
-    },
-    [formData]
-  );
+  const handleClose = () => {
+    setOpen(false);
+  };
 
   return (
     <>
@@ -42,22 +57,20 @@ function SMSNode({ data, isConnectable, id }) {
         isConnectable={isConnectable}
       />
       <SMSWrapper>
-        <form onSubmit={onSubmit}>
-          <LabelTypography variant='label' htmlFor='text'>
-            SMS:
-          </LabelTypography>
-          <TextField
-            id='text'
-            name='text'
-            onChange={onChange}
-            className='nodrag'
-            size='small'
-          />
-          <Button type='submit' variant='contained' sx={{ marginLeft: 2 }}>
-            Submit
-          </Button>
-        </form>
+        <LabelTypography variant='label' htmlFor='text'>
+          Send SMS:
+        </LabelTypography>
+        <Button
+          // type='submit'
+          variant='contained'
+          sx={{ marginLeft: 2 }}
+          color='primary'
+          onClick={() => setOpen(true)}
+        >
+          Assign SMS
+        </Button>
       </SMSWrapper>
+
       <Handle
         type='source'
         position={Position.Bottom}
@@ -65,8 +78,51 @@ function SMSNode({ data, isConnectable, id }) {
         isConnectable={isConnectable}
         style={{ background: 'red' }}
       />
+
+      <CustomizedDialogs
+        open={open}
+        modalTitle='Add SMS User'
+        handleClose={handleClose}
+      >
+        <form onSubmit={handleSubmit(handleFormSubmit)}>
+          <Typography sx={{ mb: 1 }}>Enter Phone Number:</Typography>
+          <Controller
+            name='phoneNumber'
+            control={control}
+            defaultValue=''
+            render={({ field }) => (
+              <TextField
+                {...field}
+                variant='outlined'
+                fullWidth
+                size='small'
+                error={Boolean(errors.phoneNumber)}
+                helperText={
+                  errors.phoneNumber ? errors.phoneNumber.message : ''
+                }
+                sx={{ marginBottom: 2, minWidth: 300 }}
+              />
+            )}
+          />
+
+          <Box display='flex' justifyContent='right' gap={1}>
+            <Button variant='outlined' onClick={handleClose}>
+              Cancel
+            </Button>
+            <Button type='submit' variant='contained' color='primary'>
+              Submit
+            </Button>
+          </Box>
+        </form>
+      </CustomizedDialogs>
     </>
   );
 }
 
 export default memo(SMSNode);
+
+SMSNode.propTypes = {
+  data: PropTypes.object.isRequired,
+  isConnectable: PropTypes.bool.isRequired,
+  id: PropTypes.string.isRequired,
+};

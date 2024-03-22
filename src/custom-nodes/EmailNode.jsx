@@ -6,12 +6,16 @@ import {
   TextField,
   Typography,
   Button,
-  DialogActions,
+  IconButton,
+  Chip,
 } from '@mui/material';
+import { v4 as uuidv4 } from 'uuid';
 import CustomizedDialogs from '../components/Modal/Modal';
 import { useForm, Controller } from 'react-hook-form';
+import AddCircleIcon from '@mui/icons-material/AddCircle';
 import * as yup from 'yup';
 import { yupResolver } from '@hookform/resolvers/yup';
+import PropTypes from 'prop-types';
 
 const EmailWrapper = styled(Box)(({ theme }) => ({
   border: '1px solid #eee',
@@ -29,29 +33,42 @@ const LabelTypography = styled(Typography)(({ theme }) => ({
 }));
 
 const schema = yup.object().shape({
-  firstName: yup.string().required('First name is required'),
+  email: yup.string().required('First name is required'),
 });
 
 function EmailNode({ data, isConnectable, id }) {
   const [open, setOpen] = useState(false);
+  const [emailList, setEmailList] = useState([]);
   const {
     control,
     handleSubmit,
     formState: { errors },
+    reset,
   } = useForm({
     resolver: yupResolver(schema),
   });
 
   const handleFormSubmit = (formData) => {
     console.log('data', formData);
-    const newData = { formData: formData };
-    // onSubmit(data);
-    data.onSubmit(newData, id);
-    setOpen(false);
+    const newData = { ...formData, id: uuidv4() };
+    setEmailList((prevState) => [...prevState, newData]);
+    reset();
   };
 
   const handleClose = () => {
     setOpen(false);
+  };
+
+  const handleFinalSubmit = () => {
+    console.log(emailList);
+    data.onSubmit(emailList, id);
+    setOpen(false);
+    reset();
+  };
+
+  const handleDeleteEmail = (id) => {
+    console.log(id);
+    setEmailList(emailList.filter((emailObj) => emailObj.id !== id));
   };
 
   return (
@@ -61,6 +78,7 @@ function EmailNode({ data, isConnectable, id }) {
         position={Position.Top}
         isConnectable={isConnectable}
       />
+
       <EmailWrapper>
         <LabelTypography variant='label' htmlFor='text'>
           Send Email:
@@ -90,36 +108,71 @@ function EmailNode({ data, isConnectable, id }) {
         handleClose={handleClose}
       >
         <form onSubmit={handleSubmit(handleFormSubmit)}>
-          <Typography sx={{ mb: 1 }}>Enter Email:</Typography>
-          <Controller
-            name='firstName'
-            control={control}
-            defaultValue=''
-            render={({ field }) => (
-              <TextField
-                {...field}
-                variant='outlined'
-                fullWidth
-                size='small'
-                error={Boolean(errors.firstName)}
-                helperText={errors.firstName ? errors.firstName.message : ''}
-                sx={{ marginBottom: 2, minWidth: 300 }}
+          <Box display='flex' justifyContent='center' alignItems='center'>
+            <Box>
+              <Typography sx={{ mb: 1 }}>Enter Email:</Typography>
+              <Controller
+                name='email'
+                control={control}
+                defaultValue=''
+                render={({ field }) => (
+                  <TextField
+                    {...field}
+                    variant='outlined'
+                    fullWidth
+                    size='small'
+                    error={Boolean(errors.email)}
+                    helperText={errors.email ? errors.email.message : ''}
+                    sx={{ marginBottom: 2, minWidth: 300 }}
+                  />
+                )}
               />
-            )}
-          />
-
-          <Box display='flex' justifyContent='right' gap={1}>
-            <Button variant='outlined' onClick={handleClose}>
-              Cancel
-            </Button>
-            <Button type='submit' variant='contained' color='primary'>
-              Submit
-            </Button>
+            </Box>
+            <IconButton
+              aria-label='delete'
+              size='large'
+              type='submit'
+              sx={{ marginTop: 0.5 }}
+              color='info'
+            >
+              <AddCircleIcon fontSize='inherit' />
+            </IconButton>
           </Box>
         </form>
+        <Box sx={{ mb: 2 }}>
+          {emailList.map((email) => (
+            <>
+              <Chip
+                key={email.id}
+                label={email.email}
+                onDelete={() => handleDeleteEmail(email.id)}
+                sx={{ my: 1 }}
+              />
+              <br />
+            </>
+          ))}
+        </Box>
+        <Box display='flex' justifyContent='right' gap={1}>
+          <Button variant='outlined' onClick={handleClose}>
+            Cancel
+          </Button>
+          <Button
+            variant='contained'
+            color='primary'
+            onClick={handleFinalSubmit}
+          >
+            Submit
+          </Button>
+        </Box>
       </CustomizedDialogs>
     </>
   );
 }
 
 export default memo(EmailNode);
+
+EmailNode.propTypes = {
+  data: PropTypes.object.isRequired,
+  isConnectable: PropTypes.bool.isRequired,
+  id: PropTypes.string.isRequired,
+};
