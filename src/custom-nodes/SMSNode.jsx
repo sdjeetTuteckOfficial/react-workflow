@@ -36,8 +36,13 @@ const LabelTypography = styled(Typography)(({ theme }) => ({
   fontFamily: 'Lato',
 }));
 
+const phoneRegExp = /^(\+91[\-\s]?)?[0]?(91)?[789]\d{9}$/;
+
 const schema = yup.object().shape({
-  phoneNumber: yup.string().required('First name is required'),
+  phoneNumber: yup
+    .string()
+    .matches(phoneRegExp, 'Phone number is not valid')
+    .required('Phone number is required'),
 });
 
 function SMSNode({ data, isConnectable, id }) {
