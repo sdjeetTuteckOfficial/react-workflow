@@ -8,22 +8,26 @@ import {
   Button,
   IconButton,
   Chip,
+  Fab,
 } from '@mui/material';
 import { v4 as uuidv4 } from 'uuid';
 import CustomizedDialogs from '../components/Modal/Modal';
 import { useForm, Controller } from 'react-hook-form';
 import AddCircleIcon from '@mui/icons-material/AddCircle';
+import MessageIcon from '@mui/icons-material/Message';
 import * as yup from 'yup';
 import { yupResolver } from '@hookform/resolvers/yup';
 import PropTypes from 'prop-types';
 
-const EmailWrapper = styled(Box)(({ theme }) => ({
+const SMSWrapper = styled(Box)(({ theme }) => ({
   border: '1px solid #eee',
   padding: '10px',
   borderRadius: '5px',
   background: '#6F509E',
   marginLeft: theme.spacing(2),
   boxShadow: '0 4px 6px rgba(0, 0, 0, 0.49)',
+  display: 'flex',
+  alignItems: 'center',
 }));
 
 const LabelTypography = styled(Typography)(({ theme }) => ({
@@ -81,11 +85,19 @@ function SMSNode({ data, isConnectable, id }) {
         isConnectable={isConnectable}
       />
 
-      <EmailWrapper>
+      <SMSWrapper>
         <LabelTypography variant='label' htmlFor='text'>
           Send SMS:
         </LabelTypography>
-        <Button
+        <Fab
+          color='primary'
+          size='small'
+          aria-label='add'
+          onClick={() => setOpen(true)}
+        >
+          <MessageIcon />
+        </Fab>
+        {/* <Button
           // type='submit'
           variant='contained'
           sx={{ marginLeft: 2 }}
@@ -93,8 +105,8 @@ function SMSNode({ data, isConnectable, id }) {
           onClick={() => setOpen(true)}
         >
           Assign Number
-        </Button>
-      </EmailWrapper>
+        </Button> */}
+      </SMSWrapper>
 
       <Handle
         type='source'
