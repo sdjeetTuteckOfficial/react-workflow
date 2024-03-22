@@ -56,7 +56,7 @@ const theme = createTheme({
           borderRadius: '10px',
         },
         select: {
-          padding: '0.7rem 1.6rem',
+          // padding: '0.7rem 1.6rem',
         },
         icon: {
           right: '16px',
