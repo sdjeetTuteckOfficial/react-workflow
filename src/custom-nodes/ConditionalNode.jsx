@@ -114,7 +114,7 @@ function ConditionalNode({ data, isConnectable, id }) {
       </Box>
       <CustomizedDialogs
         open={open}
-        modalTitle='Add SMS User'
+        modalTitle='Add Condition'
         handleClose={handleClose}
       >
         <form onSubmit={handleSubmit(handleFormSubmit)}>
