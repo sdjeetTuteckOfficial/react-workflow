@@ -18,6 +18,7 @@ import * as yup from 'yup';
 import { yupResolver } from '@hookform/resolvers/yup';
 import EmailIcon from '@mui/icons-material/Email';
 import PropTypes from 'prop-types';
+import { emailValidator } from 'rhf-yup-validator';
 
 const EmailWrapper = styled(Box)(({ theme }) => ({
   border: '1px solid #eee',
@@ -37,7 +38,10 @@ const LabelTypography = styled(Typography)(({ theme }) => ({
 }));
 
 const schema = yup.object().shape({
-  email: yup.string().required('First name is required'),
+  email: emailValidator({
+    label: 'Email',
+    required: true,
+  }),
 });
 
 function EmailNode({ data, isConnectable, id }) {
