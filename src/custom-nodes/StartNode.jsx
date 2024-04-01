@@ -1,8 +1,9 @@
 import { memo } from 'react';
 import { Handle, Position } from 'reactflow';
+import PropTypes from 'prop-types';
 import { Box, styled } from '@mui/material';
 
-const CircularBox = styled(Box)(({ theme }) => ({
+const CircularBox = styled(Box)(() => ({
   width: '70px',
   height: '70px',
   borderRadius: '50%',
@@ -14,7 +15,10 @@ const CircularBox = styled(Box)(({ theme }) => ({
   boxShadow: '0 4px 6px rgba(0, 0, 0, 0.49)',
 }));
 
-function StartNode({ data, isConnectable }) {
+function StartNode({
+  // data,
+  isConnectable,
+}) {
   return (
     <>
       <CircularBox>Start</CircularBox>
@@ -27,5 +31,10 @@ function StartNode({ data, isConnectable }) {
     </>
   );
 }
+
+StartNode.propTypes = {
+  data: PropTypes.object,
+  isConnectable: PropTypes.bool,
+};
 
 export default memo(StartNode);
